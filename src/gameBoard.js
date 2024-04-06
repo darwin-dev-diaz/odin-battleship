@@ -1,9 +1,18 @@
-// types of tiles
 
 const createTile = () => {
+  // types of tiles:
+  // empty
+  // ship
+  // unavailable
   let type = "empty";
+  // the ship property will only be set if there is a ship on the tile
   let ship = null;
-  return { type, ship };
+  // hit status:
+  // undiscovered
+  // hit
+  // missed
+  let hitStatus = "undiscovered";
+  return { type, ship, hitStatus };
 };
 
 const createGameBoard = () => {
