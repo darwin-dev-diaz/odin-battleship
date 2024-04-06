@@ -1,6 +1,22 @@
 import { createGameBoard } from "../gameBoard";
 
-test(".fireShot() ")
+test(".fireShot() changes hit status to miss if there is no ship", () => {
+  const gameBoard = createGameBoard();
+  gameBoard.fireShot([0,0]);
+  expect(gameBoard.getGrid()[0][0].hitStatus).toBe("missed");
+});
+
+test(".fireShot() changes hit status to hit if there is a ship", () => {
+  const gameBoard = createGameBoard();
+  const shipSizeTwo = { getSize: () => 2 };
+  gameBoard.placeShip(shipSizeTwo, [0, 0], true);
+  gameBoard.fireShot([0,0]);
+  gameBoard.fireShot([1,0]);
+  gameBoard.fireShot([2,0]);
+  expect(gameBoard.getGrid()[0][0].hitStatus).toBe("hit");
+  expect(gameBoard.getGrid()[0][1].hitStatus).toBe("hit");
+  expect(gameBoard.getGrid()[0][2].hitStatus).toBe("missed");
+});
 test(".placeShip() returns false when placing on another ship", () => {
   const gameBoard = createGameBoard();
   // mock ship

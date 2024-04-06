@@ -1,4 +1,3 @@
-
 const createTile = () => {
   // types of tiles:
   // empty
@@ -66,7 +65,14 @@ const createGameBoard = () => {
       for (let j = 0; j < 8; j++) {
         const x = shipX + dX[j];
         const y = shipY + dY[j];
-        if (x > -1 && x < 10 && y > -1 && y < 10 && grid[y][x].type === "empty" && !returnArr.includes(grid[y][x]))
+        if (
+          x > -1 &&
+          x < 10 &&
+          y > -1 &&
+          y < 10 &&
+          grid[y][x].type === "empty" &&
+          !returnArr.includes(grid[y][x])
+        )
           returnArr.push(grid[y][x]);
       }
       if (horizontal) shipX += 1;
@@ -91,13 +97,18 @@ const createGameBoard = () => {
         horizontal
       );
       unavailableTiles.forEach((tile) => (tile.type = "unavailable"));
-
     }
 
     return placedShip;
   };
-  const fireShot = (coords, ) => {
-    // takes 
+  const fireShot = (coords) => {
+    const x = coords[0];
+    const y = coords[1];
+    if (grid[y][x].type === "empty" || grid[y][x].type === "unavailable") {
+      grid[y][x].hitStatus = "missed";
+    } else if (grid[y][x].type === "ship") {      
+      grid[y][x].hitStatus = "hit";
+    }
   };
   const allShipsSunk = () => {};
 
