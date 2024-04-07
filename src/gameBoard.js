@@ -1,3 +1,5 @@
+import { createShip } from "./ship";
+
 const createTile = () => {
   // types of tiles:
   // empty
@@ -15,6 +17,20 @@ const createTile = () => {
 };
 
 const createGameBoard = () => {
+  const ships = [
+    createShip(4),
+    createShip(3),
+    createShip(3),
+    createShip(2),
+    createShip(2),
+    createShip(2),
+    createShip(1),
+    createShip(1),
+    createShip(1),
+    createShip(1),
+  ];
+  let currentShipIndex = 0;
+
   const grid = Array.from({ length: 10 }, () =>
     Array.from({ length: 10 }, () => createTile())
   );
@@ -81,38 +97,45 @@ const createGameBoard = () => {
 
     return returnArr;
   };
-  const placeShip = (ship, coords, horizontal) => {
-    let placedShip = isValidSpot(ship.getSize(), coords, horizontal);
+  const placeShip = (ship = ships[currentShipIndex], coords, horizontal) => {
+    if (ship) {
+      let placedShip = isValidSpot(ship.getSize(), coords, horizontal);
 
-    if (placedShip) {
-      const shipTiles = getToBeShipTiles(ship.getSize(), coords, horizontal);
-      shipTiles.forEach((tile) => {
-        tile.type = "ship";
-        tile.ship = ship;
-      });
+      if (placedShip) {
+        currentShipIndex++;
+        const shipTiles = getToBeShipTiles(ship.getSize(), coords, horizontal);
+        shipTiles.forEach((tile) => {
+          tile.type = "ship";
+          tile.ship = ship;
+        });
 
-      const unavailableTiles = getToBeUnavailableTiles(
-        ship.getSize(),
-        coords,
-        horizontal
-      );
-      unavailableTiles.forEach((tile) => (tile.type = "unavailable"));
+        const unavailableTiles = getToBeUnavailableTiles(
+          ship.getSize(),
+          coords,
+          horizontal
+        );
+        unavailableTiles.forEach((tile) => (tile.type = "unavailable"));
+      }
+
+      return placedShip;
     }
-
-    return placedShip;
+    return false;
   };
   const fireShot = (coords) => {
     const x = coords[0];
     const y = coords[1];
     if (grid[y][x].type === "empty" || grid[y][x].type === "unavailable") {
       grid[y][x].hitStatus = "missed";
-    } else if (grid[y][x].type === "ship") {      
+    } else if (grid[y][x].type === "ship") {
       grid[y][x].hitStatus = "hit";
+      grid[y][x].ship.hit();
     }
   };
-  const allShipsSunk = () => {};
+  const allShipsSunk = () => {
+    return ships.every((ship) => ship.isSunk());
+  };
 
-  return { getGrid, placeShip, fireShot, allShipsSunk };
+  return { getGrid, placeShip, fireShot, allShipsSunk, ships };
 };
 
 // const test = createGameBoard();

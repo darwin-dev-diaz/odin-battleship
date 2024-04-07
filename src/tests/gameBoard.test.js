@@ -1,18 +1,121 @@
 import { createGameBoard } from "../gameBoard";
 
+test(".placeShip() tries to place the same ship if previous attempt was invalid", () => {
+  const gameBoard = createGameBoard();
+  // sink all ships 10 in total
+  expect(gameBoard.placeShip(undefined, [-1, 0], true)).toBe(false);
+  expect(gameBoard.placeShip(undefined, [0, 0], true)).toBe(true);
+  expect(gameBoard.getGrid()[0][3].type).toBe("ship");
+
+  expect(gameBoard.placeShip(undefined, [1, 1], true)).toBe(false);
+  expect(gameBoard.placeShip(undefined, [0, 2], true)).toBe(true);
+  expect(gameBoard.getGrid()[2][2].type).toBe("ship");
+  expect(gameBoard.getGrid()[2][3].type).toBe("unavailable");
+});
+test(".placeShip() stops placing ships after 10 ships", () => {
+  const gameBoard = createGameBoard();
+  // sink all ships 10 in total
+  expect(gameBoard.placeShip(undefined, [0, 0], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [0, 2], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [0, 4], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [0, 6], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [0, 8], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [5, 0], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [5, 2], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [5, 4], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [5, 6], true)).toBe(true);
+  expect(gameBoard.placeShip(undefined, [5, 8], true)).toBe(true);
+
+  expect(gameBoard.placeShip(undefined, [7, 8], true)).toBe(false);
+});
+test(".allShipsSunk() returns false if there is a single ship with health", () => {
+  const gameBoard = createGameBoard();
+  // sink all ships 10 in total
+  expect(gameBoard.placeShip(undefined, [0, 0], true)).toBe(true);
+  expect(gameBoard.getGrid()[0][0].type).toBe("ship");
+  expect(gameBoard.getGrid()[0][3].type).toBe("ship");
+
+  gameBoard.fireShot([0, 0]);
+  gameBoard.fireShot([1, 0]);
+  gameBoard.fireShot([2, 0]);
+
+  gameBoard.ships.slice(1).forEach((ship) => {
+    for (let i = 0; i < ship.getSize(); i++) {
+      ship.hit();
+    }
+  });
+
+  expect(gameBoard.allShipsSunk()).toBe(false);
+});
+test(".allShipsSunk() returns true when no ships are in the water", () => {
+  const gameBoard = createGameBoard();
+  // sink all ships 10 in total
+  expect(gameBoard.placeShip(undefined, [0, 0], true)).toBe(true);
+  expect(gameBoard.getGrid()[0][0].type).toBe("ship");
+  expect(gameBoard.getGrid()[0][3].type).toBe("ship");
+
+  gameBoard.fireShot([0, 0]);
+  gameBoard.fireShot([1, 0]);
+  gameBoard.fireShot([2, 0]);
+  gameBoard.fireShot([3, 0]);
+
+  gameBoard.ships.slice(1).forEach((ship) => {
+    for (let i = 0; i < ship.getSize(); i++) {
+      ship.hit();
+    }
+  });
+
+  expect(gameBoard.allShipsSunk()).toBe(true);
+});
+test(".allShipsSunk() returns false when there are still ships in the water", () => {
+  const gameBoard = createGameBoard();
+  expect(gameBoard.allShipsSunk()).toBe(false);
+});
+test(".fireShot() increases the number of hits on a hit twice", () => {
+  const gameBoard = createGameBoard();
+  // mock ship with hit function
+  const mockHitFunc = jest.fn(() => null);
+  const shipSizeTwo = { getSize: () => 2, hit: mockHitFunc };
+
+  gameBoard.placeShip(shipSizeTwo, [0, 0], true);
+  gameBoard.fireShot([0, 0]);
+  gameBoard.fireShot([1, 0]);
+
+  expect(gameBoard.getGrid()[0][0].ship).toBe(shipSizeTwo);
+  expect(gameBoard.getGrid()[0][0].hitStatus).toBe("hit");
+
+  expect(gameBoard.getGrid()[0][1].ship).toBe(shipSizeTwo);
+  expect(gameBoard.getGrid()[0][1].hitStatus).toBe("hit");
+  expect(mockHitFunc.mock.calls).toHaveLength(2);
+});
+
+test(".fireShot() increases the number of hits on a hit once", () => {
+  const gameBoard = createGameBoard();
+  // mock ship with hit function
+  const mockHitFunc = jest.fn(() => null);
+  const shipSizeOne = { getSize: () => 1, hit: mockHitFunc };
+
+  gameBoard.placeShip(shipSizeOne, [0, 0], true);
+  gameBoard.fireShot([0, 0]);
+
+  expect(gameBoard.getGrid()[0][0].ship).toBe(shipSizeOne);
+  expect(gameBoard.getGrid()[0][0].hitStatus).toBe("hit");
+  expect(mockHitFunc.mock.calls).toHaveLength(1);
+});
 test(".fireShot() changes hit status to miss if there is no ship", () => {
   const gameBoard = createGameBoard();
-  gameBoard.fireShot([0,0]);
+  gameBoard.fireShot([0, 0]);
   expect(gameBoard.getGrid()[0][0].hitStatus).toBe("missed");
 });
 
 test(".fireShot() changes hit status to hit if there is a ship", () => {
   const gameBoard = createGameBoard();
-  const shipSizeTwo = { getSize: () => 2 };
+  const mockHitFunc = jest.fn(() => null);
+  const shipSizeTwo = { getSize: () => 2, hit: mockHitFunc };
   gameBoard.placeShip(shipSizeTwo, [0, 0], true);
-  gameBoard.fireShot([0,0]);
-  gameBoard.fireShot([1,0]);
-  gameBoard.fireShot([2,0]);
+  gameBoard.fireShot([0, 0]);
+  gameBoard.fireShot([1, 0]);
+  gameBoard.fireShot([2, 0]);
   expect(gameBoard.getGrid()[0][0].hitStatus).toBe("hit");
   expect(gameBoard.getGrid()[0][1].hitStatus).toBe("hit");
   expect(gameBoard.getGrid()[0][2].hitStatus).toBe("missed");
