@@ -1,4 +1,4 @@
-import { createShip } from "./ship";
+import { createShip } from "./ship.js";
 
 const createTile = () => {
   // types of tiles:
@@ -124,11 +124,14 @@ const createGameBoard = () => {
   const fireShot = (coords) => {
     const x = coords[0];
     const y = coords[1];
-    if (grid[y][x].type === "empty" || grid[y][x].type === "unavailable") {
+    if (grid[y][x].hitStatus !== "undiscovered") return false;
+    else if (grid[y][x].type === "empty" || grid[y][x].type === "unavailable") {
       grid[y][x].hitStatus = "missed";
+      return true;
     } else if (grid[y][x].type === "ship") {
       grid[y][x].hitStatus = "hit";
       grid[y][x].ship.hit();
+      return true;
     }
   };
   const allShipsSunk = () => {
