@@ -1,4 +1,3 @@
-import { experiments } from "webpack";
 import { createGameBoard } from "../gameBoard";
 
 test(".fireShot() returns false if the spot is hit", () => {
