@@ -18,3 +18,5 @@ const createComputerPlayer = () => {
   };
   return { gameBoard, attack, name };
 };
+
+export {createComputerPlayer, createHumanPlayer}
