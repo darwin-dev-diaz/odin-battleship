@@ -1,12 +1,11 @@
 import { createGameBoard } from "./gameBoard.js";
 
-const createHumanPlayer = (name) => {
+const createHumanPlayer = () => {
   const gameBoard = createGameBoard();
-  return { gameBoard, name };
+  return { gameBoard };
 };
 
 const createComputerPlayer = () => {
-  const name = "A.I Commander";
   const gameBoard = createGameBoard();
   const attack = (enemyGameBoard) => {
     let validMove = false;
@@ -16,7 +15,7 @@ const createComputerPlayer = () => {
       validMove = enemyGameBoard.fireShot([x, y]);
     }
   };
-  return { gameBoard, attack, name };
+  return { gameBoard, attack };
 };
 
 export {createComputerPlayer, createHumanPlayer}
