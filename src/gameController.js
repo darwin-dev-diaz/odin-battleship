@@ -1,7 +1,9 @@
 import { createComputerPlayer, createHumanPlayer } from "./participants.js";
+import { DOMManipulator } from "./manipulateDOM.js";
 
 const game = () => {
   // beginning of game
+  const dom = DOMManipulator();
   const player = createHumanPlayer();
   const computer = createComputerPlayer();
 
@@ -28,7 +30,15 @@ const game = () => {
   computer.gameBoard.placeShip(undefined, [5, 4], true);
   computer.gameBoard.placeShip(undefined, [5, 6], true);
   computer.gameBoard.placeShip(undefined, [5, 8], true);
+
   // set a currentPlayer value
+  let currentPlayer = player;
+
+  // draw board
+  dom.drawGrid(player);
+  dom.drawGrid(computer);
+
+
 
   // game loop
   // player fires a valid shot at the enemy's board
@@ -42,4 +52,4 @@ const game = () => {
   // if they would like to play a new game, rest all values and call game function again
 };
 
-game();
+export {game}

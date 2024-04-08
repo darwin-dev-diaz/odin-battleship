@@ -1,5 +1,6 @@
 .game-container{
   display: flex;
+  gap: 20px;
   justify-content: start;
   align-items: start;
 }
@@ -12,8 +13,11 @@
   justify-content: center;
 }
 
-.p-game-board {
-  background-color: rgb(210, 255, 210);
+.p-game-board,
+.c-game-board {
+  border: 3px solid black;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.851);
   height: 300px;
   width: 300px;
   display: grid;
@@ -21,18 +25,37 @@
   grid-template-rows: repeat(10, 1fr);
 }
 
-.p-cell{
+.cell{
   position: relative;
-  border: 1px solid darkgreen;
+  border: .5px solid rgb(116, 116, 116);
 }
 
-.p-cell:hover{
+.cell:hover{
   z-index: 99;
-  transform: scale(1.3);
-  border: 1px solid lightgreen;
-  background-color: rgb(172, 234, 172);
+  transform: scale(1.2);
+  border-width: 2px;
+  /* background-color: rgb(172, 234, 172); */
 
   cursor: pointer;
+}
+
+.cell--ship{
+  background-color: #c8c8ff;
+}
+
+.cell--unavailable{
+  background-color: #d8d8d8;
+}
+
+.cell--miss{
+  background-color: #FAFAD2;
+  
+}
+
+.cell--hit{
+  background-color: #FF0000;
+  /* border-color: #FF0000; */
+
 }
 
 .next-piece-box{
@@ -41,23 +64,4 @@
   border: 2px solid black;
   border-radius: 10px;
   background-color: rgb(238, 238, 238);
-}
-
-.c-game-board {
-  background-color: rgb(255, 237, 237);
-  height: 300px;
-  width: 300px;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-}
-
-.c-cell{
-  border: 1px solid lightcoral;
-}
-
-.c-cell:hover{
-  border: 1px solid lightcoral;
-  background-color: rgb(242, 177, 177);
-  cursor: pointer;
 }
