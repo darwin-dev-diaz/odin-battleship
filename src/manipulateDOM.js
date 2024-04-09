@@ -60,7 +60,25 @@ const DOMManipulator = () => {
     }
   };
 
-  return { drawGrid, returnClickedCellCoords, playerShot };
+  const displayGameOverScreen = (winner) => {
+    const gameOverScreen = document.querySelector(".d--game-over-screen");
+    gameOverScreen.querySelector("span").textContent = winner.attack
+      ? "COMPUTER"
+      : "YOU";
+    const newGameBTN = gameOverScreen.querySelector("button");
+    newGameBTN.addEventListener("click", () => {
+      gameOverScreen.classList.add("hidden");
+      // reset game
+    });
+    gameOverScreen.classList.remove("hidden");
+  };
+
+  return {
+    drawGrid,
+    returnClickedCellCoords,
+    playerShot,
+    displayGameOverScreen,
+  };
 };
 
 export { DOMManipulator };

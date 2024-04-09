@@ -70,17 +70,13 @@ const game = async () => {
     }
   };
 
-  while(continueGame){
+  while (continueGame) {
     continueGame = await currentPlayerFire();
-    currentPlayer = nextPlayer()
+    if (continueGame) currentPlayer = nextPlayer();
   }
-  console.log({ continueGame });
-  if (continueGame) {
-    // after a miss, switch the current player
-    currentPlayer = nextPlayer();
-    console.log("Test");
-    currentPlayerFire();
-  }
+
+  dom.displayGameOverScreen(currentPlayer);
+
   // game loop
   // player fires a valid shot at the enemy's board
   // if the players lands a shot, they are able to play again
