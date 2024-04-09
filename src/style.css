@@ -1,4 +1,8 @@
-.hidden{
+html {
+  user-select: none;
+}
+
+.hidden {
   display: none !important;
 }
 
@@ -16,6 +20,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 }
 
 .p-game-board,
@@ -34,7 +39,7 @@
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.851);
   height: 300px;
-  width: 300px; 
+  width: 300px;
 }
 
 .cell {
@@ -126,12 +131,12 @@
   gap: 30px;
 }
 
-h2{
+h2 {
   font-size: 20px;
 }
-h3{
+h3 {
   font-size: 30px;
 }
-h4{
+h4 {
   font-size: 20px;
 }

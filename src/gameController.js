@@ -14,21 +14,20 @@ const game = async () => {
   const nextPlayer = () => (currentPlayer === player ? computer : player);
 
   // players place their ships on the board until all ten ships are placed.
-  // for now just manually place them.
-  player.gameBoard.placeShip(undefined, [0, 0], true);
-  player.gameBoard.placeShip(undefined, [0, 2], true);
-  player.gameBoard.placeShip(undefined, [0, 4], true);
-  player.gameBoard.placeShip(undefined, [0, 6], true);
-  player.gameBoard.placeShip(undefined, [0, 8], true);
-  player.gameBoard.placeShip(undefined, [5, 0], true);
-  player.gameBoard.placeShip(undefined, [5, 2], true);
-  player.gameBoard.placeShip(undefined, [5, 4], true);
-  player.gameBoard.placeShip(undefined, [5, 6], true);
-  player.gameBoard.placeShip(undefined, [5, 8], true);
+  // make it so player can place their ships. the game wont start until the player has place their ships
+
+  for (let i = 0; i < 10; i++) {
+    while (true) {
+      const x = Math.floor(Math.random() * (9 + 1));
+      const y = Math.floor(Math.random() * (9 + 1));
+      if (player.gameBoard.placeShip(undefined, [x, y], x % 2 === 0)) {
+        break;
+      }
+    }
+  }
 
   // make it so the computer randomly places ships
   for (let i = 0; i < 10; i++) {
-    // if place ship is true, go on to the next iteration
     while (true) {
       const x = Math.floor(Math.random() * (9 + 1));
       const y = Math.floor(Math.random() * (9 + 1));
