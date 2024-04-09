@@ -32,7 +32,6 @@ const DOMManipulator = () => {
         cell.addEventListener(
           "click",
           (event) => {
-            console.log("called");
             const x = i % 10;
             const y = Math.floor((i / 10) % 10);
             resolve([[x, y], i]);
@@ -43,7 +42,13 @@ const DOMManipulator = () => {
     });
   };
 
-  const playerShot = (cell) => {
+  const playerShot = (enemy, cellNUM) => {
+    const gameBoard = enemy.attack
+      ? document.querySelector(".c-game-board")
+      : document.querySelector(".p-game-board");
+
+    const cell = gameBoard.querySelectorAll(".cell")[cellNUM];
+
     if (cell.classList.contains("cell--ship")) {
       cell.className = "cell cell--hit";
     } else if (
@@ -54,7 +59,7 @@ const DOMManipulator = () => {
     }
   };
 
-  return { drawGrid, returnClickedCellCoords };
+  return { drawGrid, returnClickedCellCoords, playerShot };
 };
 
 export { DOMManipulator };

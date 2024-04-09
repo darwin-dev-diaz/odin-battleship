@@ -127,11 +127,11 @@ const createGameBoard = () => {
     if (grid[y][x].hitStatus !== "undiscovered") return false;
     else if (grid[y][x].type === "empty" || grid[y][x].type === "unavailable") {
       grid[y][x].hitStatus = "missed";
-      return true;
+      return "miss";
     } else if (grid[y][x].type === "ship") {
       grid[y][x].hitStatus = "hit";
       grid[y][x].ship.hit();
-      return true;
+      return "hit";
     }
   };
   const allShipsSunk = () => {
