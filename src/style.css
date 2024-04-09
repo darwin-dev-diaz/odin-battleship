@@ -1,4 +1,4 @@
-.game-container{
+.game-container {
   display: flex;
   gap: 20px;
   justify-content: start;
@@ -6,7 +6,7 @@
 }
 
 .container-one,
-.container-two{
+.container-two {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +25,12 @@
   grid-template-rows: repeat(10, 1fr);
 }
 
-.cell{
+.cell {
   position: relative;
-  border: .5px solid rgb(116, 116, 116);
+  border: 0.5px solid rgb(116, 116, 116);
 }
 
-.cell:hover{
+.cell:hover {
   z-index: 99;
   transform: scale(1.2);
   border-width: 2px;
@@ -39,26 +39,59 @@
   cursor: pointer;
 }
 
-.cell--ship{
-  background-color: #c8c8ff;
+.cell--ship {
+  background-color: #a9a9ff;
 }
 
-.cell--unavailable{
+.cell--unavailable {
   background-color: #d8d8d8;
 }
 
-.cell--miss{
-  background-color: #FAFAD2;
-  
+.cell--miss {
+  background-color: #fafad2;
+  position: relative;
 }
 
-.cell--hit{
-  background-color: #FF0000;
-  /* border-color: #FF0000; */
-
+.cell--miss::after {
+  content: ""; /* Required for the pseudo-element to be generated */
+  position: absolute;
+  width: 5px; /* Size of the dot */
+  height: 5px; /* Size of the dot */
+  background-color: black; /* Color of the dot */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  border-radius: 50%; /* Makes the shape a circle */
+  transform: translate(-50%, -50%); /* Offset the dot to truly center it */
 }
 
-.next-piece-box{
+.cell--hit {
+  position: relative;
+  background-color: #fafad2;
+  border-color: #FF0000;
+  border-width: 1.5px;
+}
+
+.cell--hit::before,
+.cell--hit::after {
+  content: "";
+  position: absolute;
+  width: 2px; /* Width of the "X" lines */
+  height: 150%; /* Adjusted to fit the square */
+  top: -25%; /* Adjusted for better centering */
+  left: 50%; /* Center horizontally */
+  background-color: red; /* Color of the "X" */
+  transform: translateX(-50%); /* Center the line's width */
+}
+
+.cell--hit::before {
+  transform: translateX(-50%) rotate(45deg); /* Center and rotate one line to form one slash of the "X" */
+}
+
+.cell--hit::after {
+  transform: translateX(-50%) rotate(-45deg); /* Center and rotate the other line to form the other slash of the "X" */
+}
+
+.next-piece-box {
   height: 150px;
   width: 150px;
   border: 2px solid black;
