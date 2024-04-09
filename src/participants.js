@@ -7,15 +7,11 @@ const createHumanPlayer = () => {
 
 const createComputerPlayer = () => {
   const gameBoard = createGameBoard();
-  const attack = (enemyGameBoard) => {
-    let validMove = false;
-    while (!validMove) {
-      const x = Math.floor(Math.random() * (9 + 1));
-      const y = Math.floor(Math.random() * (9 + 1));
-      validMove = enemyGameBoard.fireShot([x, y]);
-    }
+  const attack = () => {
+    const x = Math.floor(Math.random() * (9 + 1));
+    const y = Math.floor(Math.random() * (9 + 1));
+    return [[x, y], y * 10 + x];
   };
   return { gameBoard, attack };
 };
-
-export {createComputerPlayer, createHumanPlayer}
+export { createComputerPlayer, createHumanPlayer };

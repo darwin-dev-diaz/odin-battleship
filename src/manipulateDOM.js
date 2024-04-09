@@ -53,7 +53,8 @@ const DOMManipulator = () => {
       cell.className = "cell cell--hit";
     } else if (
       cell.classList.contains("cell--unavailable") ||
-      cell.className === "cell cell--undiscovered"
+      cell.className === "cell cell--undiscovered" ||
+      cell.className === "cell"
     ) {
       cell.className = "cell cell--miss";
     }
