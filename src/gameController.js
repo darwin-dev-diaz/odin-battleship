@@ -1,7 +1,7 @@
 import { createComputerPlayer, createHumanPlayer } from "./participants.js";
 import { DOMManipulator } from "./manipulateDOM.js";
 
-const game = () => {
+const game = async () => {
   // beginning of game
   const dom = DOMManipulator();
   const player = createHumanPlayer();
@@ -38,7 +38,11 @@ const game = () => {
   dom.drawGrid(player);
   dom.drawGrid(computer);
 
+  // get clicked cell coords
+  const testCoords = await dom.returnClickedCellCoords(computer);
+  console.log({ testCoords });
 
+  // update the HTML 
 
   // game loop
   // player fires a valid shot at the enemy's board
@@ -52,4 +56,4 @@ const game = () => {
   // if they would like to play a new game, rest all values and call game function again
 };
 
-export {game}
+export { game };

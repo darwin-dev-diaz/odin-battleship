@@ -47,6 +47,10 @@
   background-color: #d8d8d8;
 }
 
+.cell--undiscovered {
+  background-color: rgba(255, 255, 255, 0.851) !important;
+}
+
 .cell--miss {
   background-color: #fafad2;
   position: relative;

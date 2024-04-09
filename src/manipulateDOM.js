@@ -9,7 +9,7 @@ const DOMManipulator = () => {
 
     grid.forEach((cell) => {
       const cellDOM = document.createElement("div");
-      cellDOM.classList.add("cell");
+      cellDOM.className = player.attack ? "cell cell--undiscovered" : "cell";
       if (cell.type === "ship") {
         cellDOM.classList.add("cell--ship");
       } else if (cell.type === "unavailable") {
@@ -20,7 +20,43 @@ const DOMManipulator = () => {
     });
   };
 
-  return { drawGrid };
+  const returnClickedCellCoords = async (player) => {
+    // i want this function to return a promise ONLY when a cell is clicked
+    return new Promise((resolve, reject) => {
+      const gameBoard = player.attack
+        ? document.querySelector(".c-game-board")
+        : document.querySelector(".p-game-board");
+
+      const cells = gameBoard.querySelectorAll(".cell");
+      cells.forEach((cell, i) => {
+        cell.addEventListener(
+          "click",
+          (event) => {
+            console.log("called");
+            const x = i % 10;
+            const y = Math.floor((i / 10) % 10);
+            resolve([[x, y], i]);
+          },
+          { once: true }
+        );
+      });
+    });
+  };
+
+  const playerShot = (cell) => {
+    // if the player takes a shot
+    // call this only when its the players turn
+    if (cell.classList.contains("cell--ship")) {
+      cell.className = "cell cell--hit";
+    } else if (
+      cell.classList.contains("cell--unavailable") ||
+      cell.className === "cell cell--undiscovered"
+    ) {
+      cell.className = "cell cell--miss";
+    }
+  };
+
+  return { drawGrid, returnClickedCellCoords };
 };
 
 export { DOMManipulator };
