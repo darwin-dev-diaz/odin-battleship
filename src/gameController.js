@@ -20,7 +20,7 @@ const game = async () => {
 
   const randomizeShips = () => {
     player.gameBoard.resetGrid();
-    
+
     for (let i = 0; i < 10; i++) {
       while (true) {
         const x = Math.floor(Math.random() * (9 + 1));
@@ -33,10 +33,12 @@ const game = async () => {
     dom.drawGrid(player);
   };
 
-  randomizeShips();
-  
-  console.log(player.gameBoard.getGrid())
-
+  // reset ships button
+  const resetShipsBTN = document.querySelector("#reset-ships-btn");
+  resetShipsBTN.addEventListener("click", () => {
+    player.gameBoard.resetGrid();
+    dom.drawGrid(player);
+  });
   // randomizeShips();
   const randomizeShipsBTN = document.querySelector("#randomize-ships-btn");
   randomizeShipsBTN.addEventListener("click", () => {
@@ -68,23 +70,18 @@ const game = async () => {
       ? currentPlayer.attack()
       : await dom.returnClickedCellCoords(nextPlayer());
 
-    console.log({ fireCoords });
-
     // if .fireShot is valid, update HTML
     const shotResponse = nextPlayer().gameBoard.fireShot(fireCoords[0]);
     if (shotResponse === "hit") {
       dom.playerShot(nextPlayer(), fireCoords[1]);
-      console.log("valid shot; hit");
       if (nextPlayer().gameBoard.allShipsSunk()) {
         return false;
       }
       return currentPlayerFire();
     } else if (shotResponse === "miss") {
-      console.log("valid shot; miss");
       dom.playerShot(nextPlayer(), fireCoords[1]);
       return true;
     } else {
-      console.log("invalid shot");
       return currentPlayerFire();
     }
   };
