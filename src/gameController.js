@@ -64,7 +64,11 @@ const game = async () => {
     }
   };
 
-  currentPlayerFire();
+  await currentPlayerFire();
+  
+
+  // after a miss, switch the current player
+  currentPlayer = nextPlayer();
 
   // game loop
   // player fires a valid shot at the enemy's board
