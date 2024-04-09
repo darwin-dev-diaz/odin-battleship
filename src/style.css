@@ -1,3 +1,7 @@
+.hidden{
+  display: none !important;
+}
+
 .game-container {
   display: flex;
   gap: 20px;
@@ -6,7 +10,8 @@
 }
 
 .container-one,
-.container-two {
+.container-two,
+.container-three {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +28,13 @@
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+}
+.d-board {
+  border: 3px solid black;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.851);
+  height: 300px;
+  width: 300px; 
 }
 
 .cell {
@@ -71,7 +83,7 @@
 .cell--hit {
   position: relative;
   background-color: #fafad2;
-  border-color: #FF0000;
+  border-color: #ff0000;
   border-width: 1.5px;
 }
 
@@ -101,4 +113,25 @@
   border: 2px solid black;
   border-radius: 10px;
   background-color: rgb(238, 238, 238);
+}
+
+.d--game-over-screen {
+  background-color: #a9a9ff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
+
+h2{
+  font-size: 20px;
+}
+h3{
+  font-size: 30px;
+}
+h4{
+  font-size: 20px;
 }

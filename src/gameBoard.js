@@ -138,7 +138,7 @@ const createGameBoard = () => {
     return ships.every((ship) => ship.isSunk());
   };
 
-  return { getGrid, placeShip, fireShot, allShipsSunk, ships };
+  return { getGrid, placeShip, fireShot, allShipsSunk };
 };
 
 // const test = createGameBoard();
