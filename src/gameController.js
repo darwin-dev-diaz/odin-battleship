@@ -51,6 +51,9 @@ const game = async () => {
       dom.playerShot(nextPlayer(), fireCoords[1]);
       console.log("valid shot; hit");
       currentPlayerFire();
+      if(nextPlayer().gameBoard.allShipsSunk()){
+        // call win condition here
+      };
     } else if (shotResponse === "miss") {
       console.log("valid shot; miss");
       dom.playerShot(nextPlayer(), fireCoords[1]);
