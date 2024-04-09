@@ -26,6 +26,13 @@ const game = async () => {
     }
   }
 
+  // draw board
+  dom.drawGrid(player);
+  await dom.clickedReadyShips();
+  // grey out the randomize all the ship buttons
+  dom.greyOutShipButtons();
+  // wait until the player clicks on the ready ships button
+
   // make it so the computer randomly places ships
   for (let i = 0; i < 10; i++) {
     while (true) {
@@ -38,7 +45,6 @@ const game = async () => {
   }
 
   // draw board
-  dom.drawGrid(player);
   dom.drawGrid(computer);
 
   let continueGame = true;

@@ -1,7 +1,6 @@
 import "./reset.css";
 import "./style.css";
 import { game } from "./gameController";
-import { DOMManipulator } from "./manipulateDOM";
 
 game();
 

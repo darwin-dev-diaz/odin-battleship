@@ -11,7 +11,7 @@ const DOMManipulator = () => {
 
     grid.forEach((cell) => {
       const cellDOM = document.createElement("div");
-      cellDOM.className = player.attack ? "cell" : "cell";
+      cellDOM.className = player.attack ? "cell cell--undiscovered" : "cell";
       if (cell.type === "ship") {
         cellDOM.classList.add("cell--ship");
       } else if (cell.type === "unavailable") {
@@ -69,13 +69,33 @@ const DOMManipulator = () => {
     gameOverScreen.classList.remove("hidden");
   };
 
+  const clickedReadyShips = async () => {
+    const btn = document.querySelector("#ready-ships-btn");
 
+    return new Promise((resolve, reject) => {
+      btn.addEventListener("click", () => {
+        resolve();
+      });
+    });
+  };
+
+  const greyOutShipButtons = () => {
+    const btns = document
+      .querySelector(".ship-btns")
+      .querySelectorAll("button");
+
+    btns.forEach((btn) => {
+      btn.disabled = true;
+    });
+  };
 
   return {
     drawGrid,
     returnClickedCellCoords,
     playerShot,
     displayGameOverScreen,
+    clickedReadyShips,
+    greyOutShipButtons
   };
 };
 
