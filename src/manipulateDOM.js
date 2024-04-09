@@ -44,8 +44,6 @@ const DOMManipulator = () => {
   };
 
   const playerShot = (cell) => {
-    // if the player takes a shot
-    // call this only when its the players turn
     if (cell.classList.contains("cell--ship")) {
       cell.className = "cell cell--hit";
     } else if (

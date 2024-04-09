@@ -7,6 +7,12 @@ const game = async () => {
   const player = createHumanPlayer();
   const computer = createComputerPlayer();
 
+  // set a currentPlayer value
+  let currentPlayer = player;
+
+  // function to switchCurrent player
+  const nextPlayer = () => (currentPlayer === player ? computer : player);
+
   // players place their ships on the board until all ten ships are placed.
   // for now just manually place them.
   player.gameBoard.placeShip(undefined, [0, 0], true);
@@ -31,9 +37,6 @@ const game = async () => {
   computer.gameBoard.placeShip(undefined, [5, 6], true);
   computer.gameBoard.placeShip(undefined, [5, 8], true);
 
-  // set a currentPlayer value
-  let currentPlayer = player;
-
   // draw board
   dom.drawGrid(player);
   dom.drawGrid(computer);
@@ -42,7 +45,7 @@ const game = async () => {
   const testCoords = await dom.returnClickedCellCoords(computer);
   console.log({ testCoords });
 
-  // update the HTML 
+  // if .fireShot is valid, update HTML
 
   // game loop
   // player fires a valid shot at the enemy's board
