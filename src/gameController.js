@@ -41,25 +41,27 @@ const game = async () => {
   dom.drawGrid(player);
   dom.drawGrid(computer);
 
-  // get clicked cell coords
-  const fireCoords = await dom.returnClickedCellCoords(computer);
+  const currentPlayerFire = async () => {
+    // get clicked cell coords
+    const fireCoords = await dom.returnClickedCellCoords(nextPlayer());
 
-  // if .fireShot is valid, update HTML
-  const shotResponse = nextPlayer().gameBoard.fireShot(fireCoords[0]);
-  if (shotResponse === "hit") {
-    dom.playerShot(nextPlayer(), fireCoords[1]);
-    // let the player shoot again
-    console.log("valid shot; hit");
-  } else if (shotResponse === "miss") {
-    dom.playerShot(nextPlayer(), fireCoords[1]);
-    console.log("valid shot; miss");
-  } else {
-    console.log("invalid shot");
-  }
+    // if .fireShot is valid, update HTML
+    const shotResponse = nextPlayer().gameBoard.fireShot(fireCoords[0]);
+    if (shotResponse === "hit") {
+      dom.playerShot(nextPlayer(), fireCoords[1]);
+      console.log("valid shot; hit");
+      currentPlayerFire();
+    } else if (shotResponse === "miss") {
+      console.log("valid shot; miss");
+      dom.playerShot(nextPlayer(), fireCoords[1]);
+      return;
+    } else {
+      console.log("invalid shot");
+      currentPlayerFire();
+    }
+  };
 
-  // if .fireShot hits a ship, let the player shoot again
-
-  // if .fireShot hits empty water, switch to the next player
+  currentPlayerFire();
 
   // game loop
   // player fires a valid shot at the enemy's board
