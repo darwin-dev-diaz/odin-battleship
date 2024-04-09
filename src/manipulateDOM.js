@@ -89,13 +89,42 @@ const DOMManipulator = () => {
     });
   };
 
+  const handleDrags = () => {
+    const gameBoardDOM = document.querySelector(".p-game-board");
+    const draggable = document.querySelector(".ship-draggable");
+    const cells = gameBoardDOM.querySelectorAll(".cell");
+
+    function handleDragStart(e) {
+      this.style.opacity = "0.3";
+    }
+
+    function handleDragEnd(e) {
+      this.style.opacity = "1";
+    }
+    function handleDragEnter(e) {
+      this.classList.add("over");
+    }
+    function handleDragLeave(e) {
+      this.classList.remove("over");
+      console.log("TESTklrqefjfipodj sfiuouijop oiup")
+    }
+
+    draggable.addEventListener("dragstart", handleDragStart);
+    draggable.addEventListener("dragend", handleDragEnd);
+
+    cells.forEach((cell) => {
+      cell.addEventListener("dragenter", handleDragEnter);
+      cell.addEventListener("dragleave", handleDragLeave);
+    });
+  };
   return {
     drawGrid,
     returnClickedCellCoords,
     playerShot,
     displayGameOverScreen,
     clickedReadyShips,
-    greyOutShipButtons
+    greyOutShipButtons,
+    handleDrags,
   };
 };
 

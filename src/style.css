@@ -47,6 +47,10 @@ html {
   border: 0.5px solid rgb(116, 116, 116);
 }
 
+.cell.over{
+  background-color: #a9ffa9;
+}
+
 .cell:hover {
   z-index: 99;
   transform: scale(1.2);
@@ -126,6 +130,7 @@ html {
 .ship-draggable {
   display: grid;
   grid-template-rows: 30px;
+  cursor: move;
 }
 
 .ship-draggable.ship-draggable--size-4 {
