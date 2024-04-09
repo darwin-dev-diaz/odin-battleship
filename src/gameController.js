@@ -76,17 +76,6 @@ const game = async () => {
   }
 
   dom.displayGameOverScreen(currentPlayer);
-
-  // game loop
-  // player fires a valid shot at the enemy's board
-  // if the players lands a shot, they are able to play again
-  // after each shot, check if the enemy board's .allShipsSunk() function
-  // if .allShipsSunk() returns true, move to end game condition
-  // if the currentPlayer misses, which the current player to the enemy
-
-  // End game condition
-  // congratulate the player who won
-  // if they would like to play a new game, rest all values and call game function again
 };
 
 export { game };

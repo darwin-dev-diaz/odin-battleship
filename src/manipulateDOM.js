@@ -3,9 +3,11 @@ const DOMManipulator = () => {
     // takes in a player, and uses their gameBoard to place the the ships where they go.
     // creates 100 cells with the correct subclass, appends them to the correct gameBoard in HTML
     const grid = player.gameBoard.getGrid().flat();
-    const gameBoard = player.attack
+    const gameBoardDOM = player.attack
       ? document.querySelector(".c-game-board")
       : document.querySelector(".p-game-board");
+
+    gameBoardDOM.innerHTML = "";
 
     grid.forEach((cell) => {
       const cellDOM = document.createElement("div");
@@ -16,12 +18,11 @@ const DOMManipulator = () => {
         cellDOM.classList.add("cell--unavailable");
       }
 
-      gameBoard.appendChild(cellDOM);
+      gameBoardDOM.appendChild(cellDOM);
     });
   };
 
   const returnClickedCellCoords = async (player) => {
-    // i want this function to return a promise ONLY when a cell is clicked
     return new Promise((resolve, reject) => {
       const gameBoard = player.attack
         ? document.querySelector(".c-game-board")
@@ -65,13 +66,10 @@ const DOMManipulator = () => {
     gameOverScreen.querySelector("span").textContent = winner.attack
       ? "COMPUTER"
       : "YOU";
-    const newGameBTN = gameOverScreen.querySelector("button");
-    newGameBTN.addEventListener("click", () => {
-      gameOverScreen.classList.add("hidden");
-      // reset game
-    });
     gameOverScreen.classList.remove("hidden");
   };
+
+
 
   return {
     drawGrid,
