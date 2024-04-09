@@ -16,22 +16,35 @@ const game = async () => {
   // players place their ships on the board until all ten ships are placed.
   // make it so player can place their ships. the game wont start until the player has place their ships
 
-  for (let i = 0; i < 10; i++) {
-    while (true) {
-      const x = Math.floor(Math.random() * (9 + 1));
-      const y = Math.floor(Math.random() * (9 + 1));
-      if (player.gameBoard.placeShip(undefined, [x, y], x % 2 === 0)) {
-        break;
+  dom.drawGrid(player);
+
+  const randomizeShips = () => {
+    player.gameBoard.resetGrid();
+    
+    for (let i = 0; i < 10; i++) {
+      while (true) {
+        const x = Math.floor(Math.random() * (9 + 1));
+        const y = Math.floor(Math.random() * (9 + 1));
+        if (player.gameBoard.placeShip(undefined, [x, y], x % 2 === 0)) {
+          break;
+        }
       }
     }
-  }
+    dom.drawGrid(player);
+  };
 
-  // draw board
-  dom.drawGrid(player);
+  randomizeShips();
+  
+  console.log(player.gameBoard.getGrid())
+
+  // randomizeShips();
+  const randomizeShipsBTN = document.querySelector("#randomize-ships-btn");
+  randomizeShipsBTN.addEventListener("click", () => {
+    randomizeShips();
+  });
+
   await dom.clickedReadyShips();
-  // grey out the randomize all the ship buttons
   dom.greyOutShipButtons();
-  // wait until the player clicks on the ready ships button
 
   // make it so the computer randomly places ships
   for (let i = 0; i < 10; i++) {

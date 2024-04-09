@@ -31,7 +31,7 @@ const createGameBoard = () => {
   ];
   let currentShipIndex = 0;
 
-  const grid = Array.from({ length: 10 }, () =>
+  let grid = Array.from({ length: 10 }, () =>
     Array.from({ length: 10 }, () => createTile())
   );
   const getGrid = () => {
@@ -138,7 +138,14 @@ const createGameBoard = () => {
     return ships.every((ship) => ship.isSunk());
   };
 
-  return { getGrid, placeShip, fireShot, allShipsSunk };
+  const resetGrid = () => {
+    grid = Array.from({ length: 10 }, () =>
+      Array.from({ length: 10 }, () => createTile())
+    );
+
+    currentShipIndex = 0;
+  };
+  return { getGrid, placeShip, fireShot, allShipsSunk, resetGrid };
 };
 
 // const test = createGameBoard();
