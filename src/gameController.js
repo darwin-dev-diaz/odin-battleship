@@ -26,16 +26,17 @@ const game = async () => {
   player.gameBoard.placeShip(undefined, [5, 6], true);
   player.gameBoard.placeShip(undefined, [5, 8], true);
 
-  computer.gameBoard.placeShip(undefined, [0, 0], true);
-  computer.gameBoard.placeShip(undefined, [0, 2], true);
-  computer.gameBoard.placeShip(undefined, [0, 4], true);
-  computer.gameBoard.placeShip(undefined, [0, 6], true);
-  computer.gameBoard.placeShip(undefined, [0, 8], true);
-  computer.gameBoard.placeShip(undefined, [5, 0], true);
-  computer.gameBoard.placeShip(undefined, [5, 2], true);
-  computer.gameBoard.placeShip(undefined, [5, 4], true);
-  computer.gameBoard.placeShip(undefined, [5, 6], true);
-  computer.gameBoard.placeShip(undefined, [5, 8], true);
+  // make it so the computer randomly places ships
+  for (let i = 0; i < 10; i++) {
+    // if place ship is true, go on to the next iteration
+    while (true) {
+      const x = Math.floor(Math.random() * (9 + 1));
+      const y = Math.floor(Math.random() * (9 + 1));
+      if (computer.gameBoard.placeShip(undefined, [x, y], x % 2 === 0)) {
+        break;
+      }
+    }
+  }
 
   // draw board
   dom.drawGrid(player);

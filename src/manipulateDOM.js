@@ -11,7 +11,7 @@ const DOMManipulator = () => {
 
     grid.forEach((cell) => {
       const cellDOM = document.createElement("div");
-      cellDOM.className = player.attack ? "cell cell--undiscovered" : "cell";
+      cellDOM.className = player.attack ? "cell" : "cell";
       if (cell.type === "ship") {
         cellDOM.classList.add("cell--ship");
       } else if (cell.type === "unavailable") {
