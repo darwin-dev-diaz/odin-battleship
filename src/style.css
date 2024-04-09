@@ -118,6 +118,32 @@ html {
   border: 2px solid black;
   border-radius: 10px;
   background-color: rgb(238, 238, 238);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ship-draggable {
+  display: grid;
+  grid-template-rows: 30px;
+}
+
+.ship-draggable.ship-draggable--size-4 {
+  grid-template-columns: repeat(4, 30px);
+}
+.ship-draggable.ship-draggable--size-3 {
+  grid-template-columns: repeat(3, 30px);
+}
+.ship-draggable.ship-draggable--size-2 {
+  grid-template-columns: repeat(2, 30px);
+}
+.ship-draggable.ship-draggable--size-1 {
+  grid-template-columns: repeat(1, 30px);
+}
+
+.ship-cell-drag {
+  background-color: #a9a9ff;
+  border: 0.5px solid rgb(116, 116, 116);
 }
 
 .d--game-over-screen {
