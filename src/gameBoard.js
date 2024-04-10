@@ -156,6 +156,7 @@ const createGameBoard = () => {
     allShipsSunk,
     resetGrid,
     allShipsPlaced,
+    isValidSpot
   };
 };
 

@@ -12,7 +12,7 @@ const DOMManipulator = () => {
 
     grid.forEach((cell) => {
       const cellDOM = document.createElement("div");
-      cellDOM.className = player.attack ? "cell cell" : "cell";
+      cellDOM.className = player.attack ? "cell cell--undiscovered" : "cell";
       if (cell.type === "ship") {
         cellDOM.classList.add("cell--ship");
       } else if (cell.type === "unavailable") {
@@ -101,6 +101,22 @@ const DOMManipulator = () => {
     });
   };
 
+  const updateDraggable = (newShipSize) => {
+    const draggable = document.querySelector(".ship-draggable");
+    // change the children in draggable
+    draggable.innerHTML = "";
+    for (let i = 0; i < newShipSize; i++) {
+      const shipCellDrag = document.createElement("div");
+      shipCellDrag.classList.add("ship-cell-drag");
+      draggable.appendChild(shipCellDrag);
+    }
+    // change the classList in draggable
+    draggable.className = `ship-draggable ship-draggable--size-${newShipSize}`;
+    // change the ship-size data in draggable
+    draggable.dataset.shipSize = `${newShipSize}`;
+  };
+
+  const dataSetArr = [1, 1, 1, 1, 2, 2, 2, 3, 3];
   const handleDrags = (player) => {
     const gameBoardDOM = document.querySelector(".p-game-board");
     const draggable = document.querySelector(".ship-draggable");
@@ -120,14 +136,13 @@ const DOMManipulator = () => {
       if (player.gameBoard.placeShip(undefined, hoveredOverCoords, true)) {
         console.log(hoveredOverCoords);
         drawGrid(player);
-        console.log("worked correctly");
+        // updateDraggable
+        updateDraggable(dataSetArr.pop());
       } else {
         console.log(hoveredOverCoords);
-        console.log("FUCK");
       }
 
-      // draggable.draggable = false;
-      handleDrags(player)
+      handleDrags(player);
     }
 
     draggable.addEventListener("dragstart", handleDragStart, { once: true });
@@ -137,12 +152,20 @@ const DOMManipulator = () => {
       cell.addEventListener("dragleave", () => {
         console.log("Working");
         cell.classList.remove("over");
+        cell.classList.remove("over--invalid");
       });
       cell.addEventListener("dragenter", () => {
-        cell.classList.add("over");
-        console.log("Working");
         hoveredOverCoords[0] = i % 10;
         hoveredOverCoords[1] = Math.floor((i / 10) % 10);
+        cell.classList.add(
+          player.gameBoard.isValidSpot(
+            draggable.dataset.shipSize,
+            hoveredOverCoords,
+            true
+          )
+            ? "over"
+            : "over--invalid"
+        );
       });
     });
   };
