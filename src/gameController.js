@@ -2,9 +2,6 @@ import { createComputerPlayer, createHumanPlayer } from "./participants.js";
 import { DOMManipulator } from "./manipulateDOM.js";
 const createGameObj = () => {
   const runGame = async () => {
-    // remove the randomizeButton
-    document.querySelector("#randomize-ships-btn").remove();
-
     // beginning of game
     const dom = DOMManipulator();
     const player = createHumanPlayer();
@@ -47,13 +44,15 @@ const createGameObj = () => {
       dom.drawGrid(player);
     });
     // randomizeShips();
-    const randomizeShipsBTN = document.createElement("button");
-    randomizeShipsBTN.id = "randomize-ships-btn";
-    randomizeShipsBTN.textContent = "Randomize ships";
-    randomizeShipsBTN.addEventListener("click", () => {
-      randomizeShips(player);
-    });
-    document.querySelector(".ship-btns").appendChild(randomizeShipsBTN);
+    const randomizeShipsBTN = document.querySelector("#randomize-ships-btn");
+    randomizeShipsBTN.replaceWith(randomizeShipsBTN.cloneNode(true));
+    console.log(randomizeShipsBTN);
+    document
+      .querySelector("#randomize-ships-btn")
+      .addEventListener("click", () => {
+        console.log(randomizeShipsBTN);
+        randomizeShips(player);
+      });
 
     // ready game state. Make sure that all the player ships are placed.
     await dom.clickedReadyShips(player);

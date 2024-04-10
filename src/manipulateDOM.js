@@ -145,6 +145,7 @@ const DOMManipulator = () => {
     }
 
     function handleDragEnd(e) {
+
       this.style.opacity = "1";
       // if the boat is over a cell, check if the spot is valid.
       if (player.gameBoard.placeShip(undefined, hoveredOverCoords, horizontal)) {
