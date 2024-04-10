@@ -101,6 +101,16 @@ const DOMManipulator = () => {
     });
   };
 
+  const greyOutShipSelection = () => {
+    const draggable = document.querySelector(".next-piece-box");
+    draggable.classList.add("greyed-out");
+  };
+
+  const unGreyShipSelection = () => {
+    const draggable = document.querySelector(".next-piece-box");
+    draggable.classList.remove("greyed-out");
+  };
+
   const updateDraggable = (newShipSize) => {
     const draggable = document.querySelector(".ship-draggable");
     // change the children in draggable
@@ -201,9 +211,11 @@ const DOMManipulator = () => {
     displayGameOverScreen,
     clickedReadyShips,
     greyOutShipButtons,
-    handleDrags,
     unGreyShipButtons,
-    resetShipSizeArr
+    handleDrags,
+    resetShipSizeArr,
+    greyOutShipSelection,
+    unGreyShipSelection,
   };
 };
 

@@ -135,6 +135,11 @@ html {
   justify-content: center;
 }
 
+.next-piece-box.greyed-out {
+  opacity: 0.1;
+  pointer-events: none;
+}
+
 .ship-draggable {
   display: grid;
 }

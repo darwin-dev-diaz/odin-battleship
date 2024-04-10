@@ -14,6 +14,8 @@ const createGameObj = () => {
     const nextPlayer = () => (currentPlayer === player ? computer : player);
 
     dom.unGreyShipButtons();
+    dom.unGreyShipSelection();
+
     // players place their ships on the board until all ten ships are placed.
     // make it so player can place their ships. the game wont start until the player has place their ships
 
@@ -57,6 +59,7 @@ const createGameObj = () => {
     // ready game state. Make sure that all the player ships are placed.
     await dom.clickedReadyShips(player);
     dom.greyOutShipButtons();
+    dom.greyOutShipSelection();
 
     // make it so the computer randomly places ships
     computer.gameBoard.resetGrid();
