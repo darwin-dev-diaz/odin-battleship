@@ -122,6 +122,20 @@ const DOMManipulator = () => {
     const draggable = document.querySelector(".ship-draggable");
     const cells = gameBoardDOM.querySelectorAll(".cell");
     const hoveredOverCoords = [-1, -1];
+    let horizontal = true;
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "r") {
+        draggable.classList.add("vertical");
+        horizontal = false;
+      }
+    });
+    document.addEventListener("keyup", (event) => {
+      if (event.key === "r") {
+        draggable.classList.remove("vertical");
+        horizontal = true;
+      }
+    });
 
     function handleDragStart(event) {
       this.style.opacity = "0.3";
@@ -133,7 +147,7 @@ const DOMManipulator = () => {
     function handleDragEnd(e) {
       this.style.opacity = "1";
       // if the boat is over a cell, check if the spot is valid.
-      if (player.gameBoard.placeShip(undefined, hoveredOverCoords, true)) {
+      if (player.gameBoard.placeShip(undefined, hoveredOverCoords, horizontal)) {
         console.log(hoveredOverCoords);
         drawGrid(player);
         // updateDraggable
@@ -161,7 +175,7 @@ const DOMManipulator = () => {
           player.gameBoard.isValidSpot(
             draggable.dataset.shipSize,
             hoveredOverCoords,
-            true
+            horizontal
           )
             ? "over"
             : "over--invalid"

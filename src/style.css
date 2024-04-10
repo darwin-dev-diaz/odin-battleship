@@ -137,20 +137,40 @@ html {
 
 .ship-draggable {
   display: grid;
-  grid-template-rows: 30px;
 }
 
 .ship-draggable.ship-draggable--size-4 {
   grid-template-columns: repeat(4, 30px);
+  grid-template-rows: 30px;
 }
 .ship-draggable.ship-draggable--size-3 {
   grid-template-columns: repeat(3, 30px);
+  grid-template-rows: 30px;
 }
 .ship-draggable.ship-draggable--size-2 {
   grid-template-columns: repeat(2, 30px);
+  grid-template-rows: 30px;
 }
 .ship-draggable.ship-draggable--size-1 {
   grid-template-columns: repeat(1, 30px);
+  grid-template-rows: 30px;
+}
+
+.ship-draggable.ship-draggable--size-4.vertical {
+  grid-template-rows: repeat(4, 30px);
+  grid-template-columns: 30px;
+}
+.ship-draggable.ship-draggable--size-3.vertical {
+  grid-template-rows: repeat(3, 30px);
+  grid-template-columns: 30px;
+}
+.ship-draggable.ship-draggable--size-2.vertical {
+  grid-template-rows: repeat(2, 30px);
+  grid-template-columns: 30px;
+}
+.ship-draggable.ship-draggable--size-1.vertical {
+  grid-template-rows: repeat(1, 30px);
+  grid-template-columns: 30px;
 }
 
 .ship-cell-drag {
@@ -178,4 +198,3 @@ h3 {
 h4 {
   font-size: 20px;
 }
-
