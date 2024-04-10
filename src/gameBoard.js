@@ -145,7 +145,18 @@ const createGameBoard = () => {
 
     currentShipIndex = 0;
   };
-  return { getGrid, placeShip, fireShot, allShipsSunk, resetGrid };
+
+  const allShipsPlaced = () => {
+    return currentShipIndex > 8;
+  };
+  return {
+    getGrid,
+    placeShip,
+    fireShot,
+    allShipsSunk,
+    resetGrid,
+    allShipsPlaced,
+  };
 };
 
 // const test = createGameBoard();

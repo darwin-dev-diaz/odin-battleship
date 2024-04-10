@@ -49,7 +49,8 @@ const game = async () => {
     randomizeShips(player);
   });
 
-  await dom.clickedReadyShips();
+  // ready game state. Make sure that all the player ships are placed.
+  await dom.clickedReadyShips(player);
   dom.greyOutShipButtons();
 
   // make it so the computer randomly places ships

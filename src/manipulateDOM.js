@@ -70,12 +70,13 @@ const DOMManipulator = () => {
     gameOverScreen.classList.remove("hidden");
   };
 
-  const clickedReadyShips = async () => {
+  const clickedReadyShips = async (player) => {
     const btn = document.querySelector("#ready-ships-btn");
 
     return new Promise((resolve, reject) => {
       btn.addEventListener("click", () => {
-        resolve();
+        if (player.gameBoard.allShipsPlaced()) resolve();
+        else {} // make the next ship box shake red.
       });
     });
   };
@@ -116,7 +117,7 @@ const DOMManipulator = () => {
     }
     function handleDragLeave(e) {
       this.classList.remove("over");
-      console.log("TESTklrqefjfipodj sfiuouijop oiup")
+      console.log("TESTklrqefjfipodj sfiuouijop oiup");
     }
 
     draggable.addEventListener("dragstart", handleDragStart);
@@ -135,7 +136,7 @@ const DOMManipulator = () => {
     clickedReadyShips,
     greyOutShipButtons,
     handleDrags,
-    unGreyShipButtons
+    unGreyShipButtons,
   };
 };
 
