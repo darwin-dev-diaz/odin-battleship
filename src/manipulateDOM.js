@@ -101,10 +101,11 @@ const DOMManipulator = () => {
     });
   };
 
-  const handleDrags = () => {
+  const handleDrags = (player) => {
     const gameBoardDOM = document.querySelector(".p-game-board");
     const draggable = document.querySelector(".ship-draggable");
     const cells = gameBoardDOM.querySelectorAll(".cell");
+    const hoveredOverCoords = [-1, -1];
 
     function handleDragStart(event) {
       this.style.opacity = "0.3";
@@ -115,22 +116,37 @@ const DOMManipulator = () => {
 
     function handleDragEnd(e) {
       this.style.opacity = "1";
-    }
-    function handleDragEnter(e) {
-      this.classList.add("over");
-    }
-    function handleDragLeave(e) {
-      this.classList.remove("over");
+      // if the boat is over a cell, check if the spot is valid.
+      if (player.gameBoard.placeShip(undefined, hoveredOverCoords, true)) {
+        console.log(hoveredOverCoords);
+        drawGrid(player);
+        console.log("worked correctly");
+      } else {
+        console.log(hoveredOverCoords);
+        console.log("FUCK");
+      }
+
+      // draggable.draggable = false;
+      handleDrags(player)
     }
 
-    draggable.addEventListener("dragstart", handleDragStart);
-    draggable.addEventListener("dragend", handleDragEnd);
+    draggable.addEventListener("dragstart", handleDragStart, { once: true });
+    draggable.addEventListener("dragend", handleDragEnd, { once: true });
 
-    cells.forEach((cell) => {
-      cell.addEventListener("dragenter", handleDragEnter);
-      cell.addEventListener("dragleave", handleDragLeave);
+    cells.forEach((cell, i) => {
+      cell.addEventListener("dragleave", () => {
+        console.log("Working");
+        cell.classList.remove("over");
+      });
+      cell.addEventListener("dragenter", () => {
+        cell.classList.add("over");
+        console.log("Working");
+        hoveredOverCoords[0] = i % 10;
+        hoveredOverCoords[1] = Math.floor((i / 10) % 10);
+      });
     });
   };
+
   return {
     drawGrid,
     returnClickedCellCoords,

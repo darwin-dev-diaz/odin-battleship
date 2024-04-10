@@ -20,7 +20,7 @@ const game = async () => {
   dom.drawGrid(player);
   dom.drawGrid(computer);
 
-  dom.handleDrags();
+  dom.handleDrags(player);
 
   const randomizeShips = (p) => {
     p.gameBoard.resetGrid();
