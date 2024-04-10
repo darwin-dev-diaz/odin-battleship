@@ -76,7 +76,8 @@ const DOMManipulator = () => {
     return new Promise((resolve, reject) => {
       btn.addEventListener("click", () => {
         if (player.gameBoard.allShipsPlaced()) resolve();
-        else {} // make the next ship box shake red.
+        else {
+        } // make the next ship box shake red.
       });
     });
   };
@@ -105,8 +106,11 @@ const DOMManipulator = () => {
     const draggable = document.querySelector(".ship-draggable");
     const cells = gameBoardDOM.querySelectorAll(".cell");
 
-    function handleDragStart(e) {
+    function handleDragStart(event) {
       this.style.opacity = "0.3";
+
+      // make the first cell be in the middle of the cursor
+      event.dataTransfer.setDragImage(draggable, 15, 15);
     }
 
     function handleDragEnd(e) {
@@ -117,7 +121,6 @@ const DOMManipulator = () => {
     }
     function handleDragLeave(e) {
       this.classList.remove("over");
-      console.log("TESTklrqefjfipodj sfiuouijop oiup");
     }
 
     draggable.addEventListener("dragstart", handleDragStart);
