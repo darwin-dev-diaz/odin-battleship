@@ -42,15 +42,15 @@ const createGameObj = () => {
     resetShipsBTN.addEventListener("click", () => {
       player.gameBoard.resetGrid();
       dom.drawGrid(player);
+      dom.resetShipSizeArr();
+      dom.handleDrags(player);
     });
     // randomizeShips();
     const randomizeShipsBTN = document.querySelector("#randomize-ships-btn");
     randomizeShipsBTN.replaceWith(randomizeShipsBTN.cloneNode(true));
-    console.log(randomizeShipsBTN);
     document
       .querySelector("#randomize-ships-btn")
       .addEventListener("click", () => {
-        console.log(randomizeShipsBTN);
         randomizeShips(player);
       });
 

@@ -116,12 +116,17 @@ const DOMManipulator = () => {
     draggable.dataset.shipSize = `${newShipSize}`;
   };
 
-  const dataSetArr = [1, 1, 1, 1, 2, 2, 2, 3, 3];
+  let shipSizeArr = [1, 1, 1, 1, 2, 2, 2, 3, 3];
+  const resetShipSizeArr = () => {
+    shipSizeArr = [1, 1, 1, 1, 2, 2, 2, 3, 3];
+    updateDraggable(4);
+  };
+
   const handleDrags = (player) => {
     const gameBoardDOM = document.querySelector(".p-game-board");
     const draggable = document.querySelector(".ship-draggable");
     const cells = gameBoardDOM.querySelectorAll(".cell");
-    const hoveredOverCoords = [-1, -1];
+    const hoveredOverCoords = [99, 99];
     let horizontal = true;
 
     document.addEventListener("keydown", (event) => {
@@ -145,14 +150,15 @@ const DOMManipulator = () => {
     }
 
     function handleDragEnd(e) {
-
       this.style.opacity = "1";
       // if the boat is over a cell, check if the spot is valid.
-      if (player.gameBoard.placeShip(undefined, hoveredOverCoords, horizontal)) {
+      if (
+        player.gameBoard.placeShip(undefined, hoveredOverCoords, horizontal)
+      ) {
         console.log(hoveredOverCoords);
         drawGrid(player);
         // updateDraggable
-        updateDraggable(dataSetArr.pop());
+        updateDraggable(shipSizeArr.pop());
       } else {
         console.log(hoveredOverCoords);
       }
@@ -162,6 +168,9 @@ const DOMManipulator = () => {
 
     draggable.addEventListener("dragstart", handleDragStart, { once: true });
     draggable.addEventListener("dragend", handleDragEnd, { once: true });
+    document.ondragover = (e) => {
+      e.preventDefault();
+    };
 
     cells.forEach((cell, i) => {
       cell.addEventListener("dragleave", () => {
@@ -194,6 +203,7 @@ const DOMManipulator = () => {
     greyOutShipButtons,
     handleDrags,
     unGreyShipButtons,
+    resetShipSizeArr
   };
 };
 
