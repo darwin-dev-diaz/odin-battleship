@@ -18,6 +18,7 @@ const game = async () => {
   // make it so player can place their ships. the game wont start until the player has place their ships
 
   dom.drawGrid(player);
+  dom.drawGrid(computer);
 
   dom.handleDrags();
 
