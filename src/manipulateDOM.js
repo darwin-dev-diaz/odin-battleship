@@ -2,6 +2,7 @@ const DOMManipulator = () => {
   const drawGrid = (player) => {
     // takes in a player, and uses their gameBoard to place the the ships where they go.
     // creates 100 cells with the correct subclass, appends them to the correct gameBoard in HTML
+    // player.gameBoard.resetGrid();
     const grid = player.gameBoard.getGrid().flat();
     const gameBoardDOM = player.attack
       ? document.querySelector(".c-game-board")
@@ -11,7 +12,7 @@ const DOMManipulator = () => {
 
     grid.forEach((cell) => {
       const cellDOM = document.createElement("div");
-      cellDOM.className = player.attack ? "cell cell--undiscovered" : "cell";
+      cellDOM.className = player.attack ? "cell cell" : "cell";
       if (cell.type === "ship") {
         cellDOM.classList.add("cell--ship");
       } else if (cell.type === "unavailable") {
@@ -88,6 +89,15 @@ const DOMManipulator = () => {
       btn.disabled = true;
     });
   };
+  const unGreyShipButtons = () => {
+    const btns = document
+      .querySelector(".ship-btns")
+      .querySelectorAll("button");
+
+    btns.forEach((btn) => {
+      btn.disabled = false;
+    });
+  };
 
   const handleDrags = () => {
     const gameBoardDOM = document.querySelector(".p-game-board");
@@ -125,6 +135,7 @@ const DOMManipulator = () => {
     clickedReadyShips,
     greyOutShipButtons,
     handleDrags,
+    unGreyShipButtons
   };
 };
 

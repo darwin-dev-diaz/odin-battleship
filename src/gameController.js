@@ -13,6 +13,7 @@ const game = async () => {
   // function to switchCurrent player
   const nextPlayer = () => (currentPlayer === player ? computer : player);
 
+  dom.unGreyShipButtons();
   // players place their ships on the board until all ten ships are placed.
   // make it so player can place their ships. the game wont start until the player has place their ships
 
@@ -20,19 +21,19 @@ const game = async () => {
 
   dom.handleDrags();
 
-  const randomizeShips = () => {
-    player.gameBoard.resetGrid();
+  const randomizeShips = (p) => {
+    p.gameBoard.resetGrid();
 
     for (let i = 0; i < 10; i++) {
       while (true) {
         const x = Math.floor(Math.random() * (9 + 1));
         const y = Math.floor(Math.random() * (9 + 1));
-        if (player.gameBoard.placeShip(undefined, [x, y], x % 2 === 0)) {
+        if (p.gameBoard.placeShip(undefined, [x, y], x % 2 === 0)) {
           break;
         }
       }
     }
-    dom.drawGrid(player);
+    dom.drawGrid(p);
   };
 
   // reset ships button
@@ -44,25 +45,15 @@ const game = async () => {
   // randomizeShips();
   const randomizeShipsBTN = document.querySelector("#randomize-ships-btn");
   randomizeShipsBTN.addEventListener("click", () => {
-    randomizeShips();
+    randomizeShips(player);
   });
 
   await dom.clickedReadyShips();
   dom.greyOutShipButtons();
 
   // make it so the computer randomly places ships
-  for (let i = 0; i < 10; i++) {
-    while (true) {
-      const x = Math.floor(Math.random() * (9 + 1));
-      const y = Math.floor(Math.random() * (9 + 1));
-      if (computer.gameBoard.placeShip(undefined, [x, y], x % 2 === 0)) {
-        break;
-      }
-    }
-  }
-
-  // draw board
-  dom.drawGrid(computer);
+  computer.gameBoard.resetGrid();
+  randomizeShips(computer);
 
   let continueGame = true;
 
