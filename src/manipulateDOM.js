@@ -77,7 +77,14 @@ const DOMManipulator = () => {
       btn.addEventListener("click", () => {
         if (player.gameBoard.allShipsPlaced()) resolve();
         else {
-        } // make the next ship box shake red.
+          const nextPieceBox = document.querySelector(".next-piece-box");
+          nextPieceBox.classList.add("shake");
+          nextPieceBox.addEventListener(
+            "animationend",
+            () => nextPieceBox.classList.remove("shake"),
+            { once: true }
+          );
+        }
       });
     });
   };

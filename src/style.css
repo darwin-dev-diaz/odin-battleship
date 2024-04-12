@@ -203,3 +203,44 @@ h3 {
 h4 {
   font-size: 20px;
 }
+
+.shake {
+  animation: shake 500ms ease-out;
+  border-color: #900;
+  background-color: #fdd;
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  5% {
+    transform: translateX(-15px);
+  }
+  15% {
+    transform: translateX(15px);
+  }
+  25% {
+    transform: translateX(-15px);
+  }
+  35% {
+    transform: translateX(15px);
+  }
+  45% {
+    transform: translateX(-15px);
+  }
+  55% {
+    transform: translateX(15px);
+  }
+  65% {
+    transform: translateX(-15px);
+  }
+  75% {
+    transform: translateX(6px);
+  }
+  85% {
+    transform: translateX(-6px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
