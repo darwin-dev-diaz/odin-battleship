@@ -70,12 +70,15 @@ const createGameObj = () => {
     const currentPlayerFire = async () => {
       // get clicked cell coords
       const fireCoords = currentPlayer.attack
-        ? currentPlayer.attack()
+        ? currentPlayer.attack(nextPlayer())
         : await dom.returnClickedCellCoords(nextPlayer());
+
+      if (currentPlayer.attack) currentPlayer.prevAttackUnSuccessful();
 
       // if .fireShot is valid, update HTML
       const shotResponse = nextPlayer().gameBoard.fireShot(fireCoords[0]);
       if (shotResponse === "hit") {
+        if (currentPlayer.attack) currentPlayer.prevAttackSuccessful();
         dom.playerShot(nextPlayer(), fireCoords[1]);
         if (nextPlayer().gameBoard.allShipsSunk()) {
           return false;

@@ -78,13 +78,14 @@ const DOMManipulator = () => {
         if (player.gameBoard.allShipsPlaced()) resolve();
         else {
           const nextPieceBox = document.querySelector(".next-piece-box");
-          nextPieceBox.classList.add("shake");
-          nextPieceBox.addEventListener(
-            "animationend",
-            () => nextPieceBox.classList.remove("shake"),
-            { once: true }
-          );
+        nextPieceBox.classList.add("shake");
+        nextPieceBox.addEventListener(
+          "animationend",
+          () => nextPieceBox.classList.remove("shake"),
+          { once: true }
+        );
         }
+        
       });
     });
   };
