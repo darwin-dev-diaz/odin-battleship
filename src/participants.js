@@ -32,6 +32,9 @@ const createComputerPlayer = () => {
     });
 
     return returnArr;
+
+    // if a attack dir is set, attack the square in that direction if its available
+    // set an attack direction after the first previous successful attack
   };
 
   const attack = (enemy) => {
@@ -41,13 +44,13 @@ const createComputerPlayer = () => {
       const nextMove = validNextMoves.length
         ? validNextMoves[Math.floor(Math.random() * validNextMoves.length)]
         : 0;
+        // const attackDir = // direction from previous attack
       if (validNextMoves.length)
         return [nextMove, nextMove[1] * 10 + nextMove[0]];
     }
     const x = Math.floor(Math.random() * (9 + 1));
     const y = Math.floor(Math.random() * (9 + 1));
-    previousAttack[0] = x;
-    previousAttack[1] = y;
+    [previousAttack[0], previousAttack[1]] = [x, y];
     return [[x, y], y * 10 + x];
   };
   return { gameBoard, attack, prevAttackSuccessful, prevAttackUnSuccessful };

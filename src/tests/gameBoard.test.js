@@ -4,21 +4,21 @@ test(".fireShot() returns false if the spot is hit", () => {
   const gameBoard = createGameBoard();
   // sink all ships 10 in total
   gameBoard.placeShip(undefined, [0, 0], true);
-  expect(gameBoard.fireShot([0, 0])).toBe(true);
+  expect(gameBoard.fireShot([0, 0])).toBe("hit");
   expect(gameBoard.getGrid()[0][0].hitStatus).toBe("hit");
   expect(gameBoard.fireShot([0, 0])).toBe(false);
 });
 test(".fireShot() returns false if the spot is missed", () => {
   const gameBoard = createGameBoard();
   // sink all ships 10 in total
-  expect(gameBoard.fireShot([0, 0])).toBe(true);
+  expect(gameBoard.fireShot([0, 0])).toBe("miss");
   expect(gameBoard.getGrid()[0][0].hitStatus).toBe("missed");
   expect(gameBoard.fireShot([0, 0])).toBe(false);
 });
-test(".fireShot() returns true if the spot is undiscovered", () => {
+test(".fireShot() returns miss if the spot is undiscovered", () => {
   const gameBoard = createGameBoard();
   // sink all ships 10 in total
-  expect(gameBoard.fireShot([0, 0])).toBe(true);
+  expect(gameBoard.fireShot([0, 0])).toBe("miss");
 });
 test(".placeShip() tries to place the same ship if previous attempt was invalid", () => {
   const gameBoard = createGameBoard();
