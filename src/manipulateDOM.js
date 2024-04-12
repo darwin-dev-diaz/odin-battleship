@@ -159,32 +159,44 @@ const DOMManipulator = () => {
       event.dataTransfer.setDragImage(draggable, 15, 15);
     }
 
-    function handleDragEnd(e) {
-      this.style.opacity = "1";
-      // if the boat is over a cell, check if the spot is valid.
-      if (
-        player.gameBoard.placeShip(undefined, hoveredOverCoords, horizontal)
-      ) {
-        console.log(hoveredOverCoords);
-        drawGrid(player);
-        // updateDraggable
-        updateDraggable(shipSizeArr.pop());
-      } else {
-        console.log(hoveredOverCoords);
-      }
+    gameBoardDOM.addEventListener("dragover", (event) => {
+      event.preventDefault(); // make the area a drop zone
+    });
+    gameBoardDOM.addEventListener(
+      "drop",
+      (event) => {
+        event.preventDefault(); // allow drops only to be called over game board
+        cells.forEach((cell) => {
+          // remove stylings from all cells
+          cell.classList.remove("over");
+          cell.classList.remove("over--invalid");
+        });
+        draggable.style.opacity = "1";
+        // if the boat is over a cell, check if the spot is valid.
+        if (
+          player.gameBoard.placeShip(undefined, hoveredOverCoords, horizontal)
+        ) {
+          drawGrid(player);
+          // updateDraggable
+          updateDraggable(shipSizeArr.pop());
+        }
 
-      handleDrags(player);
-    }
-
+        console.log("now");
+      },
+      { once: true }
+    );
     draggable.addEventListener("dragstart", handleDragStart, { once: true });
-    draggable.addEventListener("dragend", handleDragEnd, { once: true });
-    document.ondragover = (e) => {
-      e.preventDefault();
-    };
+    draggable.addEventListener(
+      "dragend",
+      () => {
+        draggable.style.opacity = "1";
+        handleDrags(player);
+      },
+      { once: true }
+    );
 
     cells.forEach((cell, i) => {
       cell.addEventListener("dragleave", () => {
-        console.log("Working");
         cell.classList.remove("over");
         cell.classList.remove("over--invalid");
       });
