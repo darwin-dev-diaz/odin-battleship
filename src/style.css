@@ -193,6 +193,16 @@ html {
   justify-content: center;
   gap: 30px;
 }
+.d--select-mode {
+  background-color: #a9d4ff;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
 
 h2 {
   font-size: 20px;
