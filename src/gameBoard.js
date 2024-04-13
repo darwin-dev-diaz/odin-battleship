@@ -124,6 +124,8 @@ const createGameBoard = () => {
   const fireShot = (coords) => {
     const x = coords[0];
     const y = coords[1];
+    console.log({ x, y });
+    console.log(grid[y][x].type);
     if (grid[y][x].hitStatus !== "undiscovered") return false;
     else if (grid[y][x].type === "empty" || grid[y][x].type === "unavailable") {
       grid[y][x].hitStatus = "missed";

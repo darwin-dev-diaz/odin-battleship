@@ -20,7 +20,7 @@ test(".attack() shoots in a valid spot if the directional attack is invalid", ()
   // third attack (not forced on going in vertical direction)
   expect(c.getPrevAttack()).toStrictEqual([0, 2]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[1, 0], 1 * 10 + 0]);
+  expect(c.attack(p)).toStrictEqual([[0, 1], 1 * 10 + 0]);
   expect(p.gameBoard.fireShot([0, 1])).toBe("hit");
   c.prevAttackSuccessful();
 
@@ -55,7 +55,7 @@ test(".attack() shoots randomly again after directional attack misses", () => {
   // third attack (not forced on going in vertical direction)
   expect(c.getPrevAttack()).toStrictEqual([5, 7]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[6, 5], 6 * 10 + 5]);
+  expect(c.attack(p)).toStrictEqual([[5, 6], 6 * 10 + 5]);
   expect(p.gameBoard.fireShot([5, 6])).toBe("hit");
   c.prevAttackSuccessful();
 
@@ -69,7 +69,7 @@ test(".attack() shoots randomly again after directional attack misses", () => {
   // fifth attack shoots in direction but misses
   expect(c.getPrevAttack()).toStrictEqual([5, 5]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[4, 5], 4 * 10 + 5]);
+  expect(c.attack(p)).toStrictEqual([[5, 4], 4 * 10 + 5]);
   expect(p.gameBoard.fireShot([5, 4])).toBe("miss");
   c.prevAttackUnSuccessful();
 
@@ -99,7 +99,7 @@ test("createComputerPlayer .attack() goes in +vertical direction if a attack dir
   // third attack (not forced on going in vertical direction)
   expect(c.getPrevAttack()).toStrictEqual([5, 7]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[6, 5], 6 * 10 + 5]);
+  expect(c.attack(p)).toStrictEqual([[5, 6], 6 * 10 + 5]);
   expect(p.gameBoard.fireShot([5, 6])).toBe("hit");
   c.prevAttackSuccessful();
 
@@ -113,7 +113,7 @@ test("createComputerPlayer .attack() goes in +vertical direction if a attack dir
   // fifth attack shoots in direction but misses
   expect(c.getPrevAttack()).toStrictEqual([5, 5]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[4, 5], 4 * 10 + 5]);
+  expect(c.attack(p)).toStrictEqual([[5, 4], 4 * 10 + 5]);
   expect(p.gameBoard.fireShot([5, 4])).toBe("miss");
   c.prevAttackUnSuccessful();
 });
@@ -139,21 +139,21 @@ test("createComputerPlayer .attack() goes in -vertical direction if a attack dir
   // third attack (not forced on going in vertical direction)
   expect(c.getPrevAttack()).toStrictEqual([5, 6]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[7, 5], 7 * 10 + 5]);
+  expect(c.attack(p)).toStrictEqual([[5, 7], 7 * 10 + 5]);
   expect(p.gameBoard.fireShot([5, 7])).toBe("hit");
   c.prevAttackSuccessful();
 
   // forth attack sinks ship without my help
   expect(c.getPrevAttack()).toStrictEqual([5, 7]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[8, 5], 8 * 10 + 5]);
+  expect(c.attack(p)).toStrictEqual([[5, 8], 8 * 10 + 5]);
   expect(p.gameBoard.fireShot([5, 8])).toBe("hit");
   c.prevAttackSuccessful();
 
   // fifth attack shoots in direction but misses
   expect(c.getPrevAttack()).toStrictEqual([5, 8]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[9, 5], 9 * 10 + 5]);
+  expect(c.attack(p)).toStrictEqual([[5, 9], 9 * 10 + 5]);
   expect(p.gameBoard.fireShot([5, 9])).toBe("miss");
   c.prevAttackUnSuccessful();
 });
@@ -179,7 +179,7 @@ test("createComputerPlayer .attack() goes in +horizontal direction if a attack d
   // third attack (not forced on going in horz direction)
   expect(c.getPrevAttack()).toStrictEqual([6, 5]);
   expect(c.getPrevAttackStatus()).toBe(true);
-  expect(c.attack(p)).toStrictEqual([[5, 7], 5 * 10 + 7]);
+  expect(c.attack(p)).toStrictEqual([[7, 5], 5 * 10 + 7]);
 });
 test("createComputerPlayer .attack() tries to attack adjacent tiles if previous attack successful", () => {
   const c = createComputerPlayer();

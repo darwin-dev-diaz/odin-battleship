@@ -72,7 +72,7 @@ const createComputerPlayer = () => {
       const nextMove = getValidFollowUpAttacks(enemy.gameBoard, fireDirection);
       if (!Array.isArray(nextMove[0])) {
         [previousAttack[0], previousAttack[1]] = [nextMove[0], nextMove[1]];
-        return [[nextMove[1], nextMove[0]], nextMove[1] * 10 + nextMove[0]];
+        return [nextMove, nextMove[1] * 10 + nextMove[0]];
       }
     } else if (wasPrevAttackSuccessful && !firstRandomAttackSuccessful) {
       firstRandomAttackSuccessful = true;
