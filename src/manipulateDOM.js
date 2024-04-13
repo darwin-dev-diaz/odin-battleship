@@ -105,6 +105,19 @@ const DOMManipulator = () => {
       });
     });
   };
+  const clickedGameMode = async () => {
+    const singlePlayerBtn = document.querySelector("#single-player-btn");
+    const multiplayerPlayerBtn = document.querySelector("#multi-player-btn");
+
+    return new Promise((resolve) => {
+      singlePlayerBtn.addEventListener("click", () => {
+        resolve("single-player");
+      });
+      multiplayerPlayerBtn.addEventListener("click", () => {
+        resolve("multi-player");
+      });
+    });
+  };
 
   const greyOutShipButtons = () => {
     const btns = document
@@ -252,6 +265,7 @@ const DOMManipulator = () => {
     resetShipSizeArr,
     greyOutShipSelection,
     unGreyShipSelection,
+    clickedGameMode,
   };
 };
 
