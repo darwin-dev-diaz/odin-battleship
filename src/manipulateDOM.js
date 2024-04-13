@@ -44,6 +44,18 @@ const DOMManipulator = () => {
     });
   };
 
+  const returnDiagonalsDOM = (coords) => {
+    const dX = [-1, 1, 1, -1];
+    const dY = [-1, -1, 1, 1];
+    const arr = Array.from({ length: 4 }, (v, i) => {
+      return [coords[0] + dX[i], coords[1] + dY[i]];
+    })
+      .filter((c) => c[0] < 10 && c[0] > -1 && c[1] < 10 && c[1] > -1)
+      .map((c) => c[1] * 10 + c[0]);
+
+    return arr;
+  };
+
   const playerShot = (enemy, cellNUM) => {
     const gameBoard = enemy.attack
       ? document.querySelector(".c-game-board")
@@ -53,6 +65,11 @@ const DOMManipulator = () => {
 
     if (cell.classList.contains("cell--ship")) {
       cell.className = "cell cell--hit";
+      const missedCells = returnDiagonalsDOM([
+        cellNUM % 10,
+        Math.floor((cellNUM / 10) % 10),
+      ]).map((x) => gameBoard.querySelectorAll(".cell")[x]);
+      missedCells.forEach((cell) => (cell.className = "cell cell--miss"));
     } else if (
       cell.classList.contains("cell--unavailable") ||
       cell.className === "cell cell--undiscovered" ||
@@ -78,14 +95,13 @@ const DOMManipulator = () => {
         if (player.gameBoard.allShipsPlaced()) resolve();
         else {
           const nextPieceBox = document.querySelector(".next-piece-box");
-        nextPieceBox.classList.add("shake");
-        nextPieceBox.addEventListener(
-          "animationend",
-          () => nextPieceBox.classList.remove("shake"),
-          { once: true }
-        );
+          nextPieceBox.classList.add("shake");
+          nextPieceBox.addEventListener(
+            "animationend",
+            () => nextPieceBox.classList.remove("shake"),
+            { once: true }
+          );
         }
-        
       });
     });
   };

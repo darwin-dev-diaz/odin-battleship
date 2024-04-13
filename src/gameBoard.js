@@ -121,11 +121,21 @@ const createGameBoard = () => {
     }
     return false;
   };
+  const makeDiagonalsHit = (coords) => {
+    const dX = [-1, 1, 1, -1];
+    const dY = [-1, -1, 1, 1];
+    const arr = Array.from({ length: 4 }, (v, i) => {
+      return [coords[0] + dX[i], coords[1] + dY[i]];
+    }).filter((c) => c[0] < 10 && c[0] > -1 && c[1] < 10 && c[1] > -1);
+
+    arr.forEach((c) => {
+      console.log(c);
+      grid[c[1]][c[0]].hitStatus = "missed";
+    });
+  };
   const fireShot = (coords) => {
     const x = coords[0];
     const y = coords[1];
-    console.log({ x, y });
-    console.log(grid[y][x].type);
     if (grid[y][x].hitStatus !== "undiscovered") return false;
     else if (grid[y][x].type === "empty" || grid[y][x].type === "unavailable") {
       grid[y][x].hitStatus = "missed";
@@ -133,6 +143,7 @@ const createGameBoard = () => {
     } else if (grid[y][x].type === "ship") {
       grid[y][x].hitStatus = "hit";
       grid[y][x].ship.hit();
+      makeDiagonalsHit([x, y]);
       return "hit";
     }
   };
@@ -164,6 +175,6 @@ const createGameBoard = () => {
 };
 
 // const test = createGameBoard();
-// console.log(test.isValidSpot(3, [9, 8], false));
+// console.log(test.makeDiagonalsHit());
 
 export { createGameBoard };
