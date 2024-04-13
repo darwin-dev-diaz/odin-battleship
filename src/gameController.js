@@ -56,6 +56,26 @@ const createGameObj = () => {
         randomizeShips(player);
       });
 
+    const testPlaceButton = document.querySelector("#test-ships-btn");
+    testPlaceButton.replaceWith(testPlaceButton.cloneNode(true));
+    document
+      .querySelector("#test-ships-btn")
+      .addEventListener("click", () => {
+        player.gameBoard.resetGrid();
+        player.gameBoard.placeShip(undefined, [0, 0], true);
+        player.gameBoard.placeShip(undefined, [0, 2], true);
+        player.gameBoard.placeShip(undefined, [0, 4], true);
+        player.gameBoard.placeShip(undefined, [0, 6], true);
+        player.gameBoard.placeShip(undefined, [0, 7], true);
+        player.gameBoard.placeShip(undefined, [0, 8], true);
+        player.gameBoard.placeShip(undefined, [5, 0], true);
+        player.gameBoard.placeShip(undefined, [5, 2], true);
+        player.gameBoard.placeShip(undefined, [5, 4], true);
+        player.gameBoard.placeShip(undefined, [5, 6], true);
+        player.gameBoard.placeShip(undefined, [5, 8], true);
+        dom.drawGrid(player);
+      });
+
     // ready game state. Make sure that all the player ships are placed.
     await dom.clickedReadyShips(player);
     dom.greyOutShipButtons();
@@ -67,13 +87,20 @@ const createGameObj = () => {
 
     let continueGame = true;
 
+    let x = true;
+
     const currentPlayerFire = async () => {
       // get clicked cell coords
-      const fireCoords = currentPlayer.attack
-        ? currentPlayer.attack(nextPlayer())
-        : await dom.returnClickedCellCoords(nextPlayer());
-
-      if (currentPlayer.attack) currentPlayer.prevAttackUnSuccessful();
+      let fireCoords;
+      if (x && currentPlayer.attack) {
+        console.log("NOW");
+        fireCoords = currentPlayer.attack(nextPlayer(), [0, 0]);
+        x = false;
+      } else {
+        fireCoords = currentPlayer.attack
+          ? currentPlayer.attack(nextPlayer())
+          : await dom.returnClickedCellCoords(nextPlayer());
+      }
 
       // if .fireShot is valid, update HTML
       const shotResponse = nextPlayer().gameBoard.fireShot(fireCoords[0]);
@@ -85,6 +112,7 @@ const createGameObj = () => {
         }
         return currentPlayerFire();
       } else if (shotResponse === "miss") {
+        if (currentPlayer.attack) currentPlayer.prevAttackUnSuccessful();
         dom.playerShot(nextPlayer(), fireCoords[1]);
         return true;
       } else {
